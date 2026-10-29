@@ -8,5 +8,5 @@ replicas:
     count: 1
 images:
   - name: ghcr.io/charlesdev96/gitops-demo-api # https://github.com/charlesdev96/gitops-demo-api is the application url e.g backend url
-    newTag: 4c99e8611a4956efdfc4f4185ff65c60901606b3
+    newTag: 063b9de9b37210a7accf3ed591ff11446213201c
 
