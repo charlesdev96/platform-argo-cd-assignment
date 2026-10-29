@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-demo-api
+  labels:
+    app: gitops-demo-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gitops-demo-api
+  template:
+    metadata:
+      labels:
+        app: gitops-demo-api
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/charlesdev96/gitops-demo-api:latest  # https://github.com/charlesdev96/gitops-demo-api is the application url e.g backend url
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "3000"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

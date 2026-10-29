@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: staging
+resources:
+  - ../../base
+replicas:
+  - name: gitops-demo-api
+    count: 1
+images:
+  - name: ghcr.io/charlesdev96/gitops-demo-api # https://github.com/charlesdev96/gitops-demo-api is the application url e.g backend url
+    newTag: latest
+
